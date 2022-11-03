@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Option 1: Bootstrap Style with Popper -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/general.css" />
+  </head>
+  <body>
+   
+
+    <nav class="navbar navbar-light bg-light">
+      <form class="container-fluid justify-content-start">
+
+        <a href="./RTLoggerWeb.html" data-bs-toggle="tooltip" data-bs-placement="center" title="internet Network" 
+        style=" padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 2px;">
+          <svg id="icon-cloud-download" viewBox="0 0 32 32" width="100" title="web">
+            <path d="M27.844 11.252c-0.101-4.022-3.389-7.252-7.433-7.252-2.369 0-4.477 1.109-5.839 2.835-0.764-0.987-1.959-1.624-3.303-1.624-2.307 0-4.176 1.871-4.176 4.179 0 0.201 0.015 0.399 0.043 0.592-0.351-0.063-0.711-0.098-1.080-0.098-3.344-0-6.054 2.712-6.054 6.058s2.71 6.058 6.054 6.058h2.868l7.078 7.328 7.078-7.328 3.484-0c3.004-0.006 5.438-2.444 5.438-5.451 0-2.565-1.771-4.716-4.156-5.296zM16 26l-6-6h4v-6h4v6h4l-6 6z"></path>
+            </svg>
+          </a>
+
+      
+       <a href="#" data-bs-toggle="tooltip" data-bs-placement="center" title="Local Network" 
+       style="
+         padding-left: 10px;
+         padding-right: 10px;
+         padding-bottom: 2px;
+         background-color: #eef1f6;
+         border-bottom: 6px solid #4f546c;
+         border-radius: 10px;">
+         
+        <svg id="icon-connection" viewBox="0 0 40 32" width="100" title="local" 
+        style="  color: #4f546c;
+                 fill: #4f546c">
+          <path d="M20 18c3.308 0 6.308 1.346 8.481 3.519l-2.827 2.827c-1.449-1.449-3.449-2.346-5.654-2.346s-4.206 0.897-5.654 2.346l-2.827-2.827c2.173-2.173 5.173-3.519 8.481-3.519zM5.858 15.858c3.777-3.777 8.8-5.858 14.142-5.858s10.365 2.080 14.142 5.858l-2.828 2.828c-3.022-3.022-7.040-4.686-11.314-4.686s-8.292 1.664-11.314 4.686l-2.828-2.828zM30.899 4.201c3.334 1.41 6.329 3.429 8.899 6v0l-2.828 2.828c-4.533-4.533-10.56-7.029-16.971-7.029s-12.438 2.496-16.971 7.029l-2.828-2.828c2.571-2.571 5.565-4.589 8.899-6 3.453-1.461 7.12-2.201 10.899-2.201s7.446 0.741 10.899 2.201zM18 28c0-1.105 0.895-2 2-2s2 0.895 2 2c0 1.105-0.895 2-2 2s-2-0.895-2-2z"></path>
+          </svg>
+        </a>
+      </form>  
+    </nav> 
+
+    <div style="margin-left: 20px;">
+     <h4>Real Time Monitor<b style="font-size: 18px; color: rgb(255, 89, 0); padding-top: 0px;font-weight: lighter;" >source:local network</b></h4>  
+     
+     <div class="container mt-5" style="align-items: center;">
+      
+      <div class="row">
+        <div class="card shadow p-3 mb-5" 
+        style="width: 40rem; height: 10rem; align-self: center; border-radius: 20px; background-color: rgb(231, 83, 29); margin: 10px">
+          <div class="card-body">
+            <h3 class="card-title text-white">Solar Radiation</h5>
+              <div style="position: absolute; right: 2rem; top: 1rem;">
+                <img src="../assets/images/panel2.png" style="width: 70px; height: 70px;">
+              </div>
+              
+                <p id="solarRad" class="card-subtitle mb-2 text-white" style="font-size:40px;">0</p>
+                <p style="color: white; font-size: 20px;">W/M2</p>
+             
+             </div>
+        </div>
+
+        <div class="card shadow p-3 mb-5" 
+        style="width: 40rem; height: 10rem; align-self: center; border-radius: 20px; background-color: rgb(1, 1, 16); margin: 10px">
+          <div class="card-body">
+            <h3 class="card-title text-white">Solar panel Voltage</h5>
+              <div style="position: absolute; right: 2rem; top: 1rem;">
+                <img src="../assets/images/voltage.png" style="width: 70px; height: 70px;">
+              </div>
+             
+                <p id="voltage" class="card-subtitle mb-2 text-white" style="font-size:40px;">0</p>
+                <p style="color: white; font-size: 20px;">Volt</p>
+              
+              </div>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col">
+          <div class="card shadow p-3 mb-5" 
+          style="width: 18rem; height: 10rem; align-self: center; border-radius: 20px; background-color: rgb(231, 184, 29);">
+            <div class="card-body">
+              <h3 class="card-title text-white">Light Intensity</h5>
+                <div style="position: absolute; right: 2rem; bottom: 1rem;">
+                  <img src="../assets/images/light.png" style="width: 50px; height: 50px;">
+                </div>
+          
+                  <p id="light" class="card-subtitle mb-2 text-white" style="font-size:40px;">0</p>
+                  <p style="color: white; font-size: 20px;">lux</p>
+                
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card shadow p-3 mb-5" 
+          style="width: 18rem; height: 10rem; align-self: center; border-radius: 20px; background-color: rgb(29, 93, 231);">
+            <div class="card-body">
+              <h3 class="card-title text-white">Humidity</h5>
+                <div style="position: absolute; right: 2rem; bottom: 1rem;">
+                  <img src="../assets/images/humidity.png" style="width: 50px; height: 50px;">
+                </div>
+                <div style="flex-direction: row;">
+                  <p id="humidity" class="card-subtitle mb-2 text-white" style="font-size:40px;">0</p>
+                  <p style="color: white; font-size: 20px;">%</p>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card shadow p-3 mb-5" 
+          style="width: 18rem; height: 10rem; align-self: center; border-radius: 20px; background-color: rgb(29, 207, 231);">
+            <div class="card-body">
+              <h3 class="card-title text-white">Pressure</h5>
+                <div style="position: absolute; right: 2rem; bottom: 1rem;">
+                  <img src="../assets/images/pressure.png" style="width: 50px; height: 50px;">
+                </div>
+               
+                  <p id="pressure" class="card-subtitle mb-2 text-white" style="font-size:40px;">0</p>
+                  <p style="color: white; font-size: 20px;">hPa</p>
+                
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card shadow p-3 mb-5" 
+          style="width: 18rem; height: 10rem; align-self: center; border-radius: 20px; background-color: rgb(231, 29, 29);">
+            <div class="card-body">
+              <h3 class="card-title text-white">Temperature</h5>
+                <div style="position: absolute; right: 2rem; bottom: 1rem;">
+                  <img src="../assets/images/temp.png" style="width: 50px; height: 50px;">
+                </div>
+               
+                  <p id="temp" class="card-subtitle mb-2 text-white" style="font-size:40px;">0</p>
+                  <p style="color: white; font-size: 20px;">℃</p>
+                
+        
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+      <div class="card shadow p-3 mb-5" 
+        style="width: 40rem; height: 10rem; align-self: center; border-radius: 20px; background-color: rgb(3, 1, 26); margin: 10px;">
+          <div class="card-body">
+            <h3 class="card-title text-white">Power</h5>
+              <div style="position: absolute; right: 2rem; top: 1rem;">
+                <img src="../assets/images/power.png" style="width: 70px; height: 70px;">
+              </div>
+               
+                  <p id="power" class="card-subtitle mb-2 text-white" style="font-size:40px;">0</p>
+                  <p style="color: white; font-size: 20px;">Watt</p>
+                
+            </div>
+        </div>
+
+      <div class="card shadow p-3 mb-5" 
+      style="width: 40rem; height: 10rem; align-self: center; border-radius: 20px; background-color: rgb(48, 48, 48); margin: 10px;">
+        <div class="card-body">
+          <h3 class="card-title text-white">Solar panel Current</h5>
+            <div style="position: absolute; right: 2rem; top: 1rem;">
+              <img src="../assets/images/current.png" style="width: 70px; height: 70px;">
+            </div>
+             
+              <p id="current" class="card-subtitle mb-2 text-white" style="font-size:40px;">0</p>
+              <p style="color: white; font-size: 20px;">Amps</p>
+            
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+       <script src="../assets/js/bootstrap.bundle.min.js"></script>
+       <script src="../assets/js/general.js"></script>
+       <script src="../render/renderRTloggerLocal.js"></script>
+  </body>
+</html>

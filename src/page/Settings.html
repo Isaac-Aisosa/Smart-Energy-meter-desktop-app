@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Option 1: Bootstrap Style with Popper -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/general.css" />
+  </head>
+  <body>
+    
+<div class="container">
+
+    <h3 class="mt-4 ">Energy Management Settings</h3>
+        <form  class="mb-2 card shadow p-3 mt-5"  style="width: 30rem; align-self: center;">
+          <div class="mb-3">
+            <h4>Energy Tariff</h4>
+            <h6  style="color: rgb(30, 3, 110);">Current Tariff: ₦<span id ="Settariffs"></span>/KWH</h6>
+            <h6  style="color: red;"></h6>
+          
+            <label class="form-label" for="password" >Tariff</label>
+            <input type="text" id="tariff"  class="form-control" autofocus placeholder="₦/kwh" tabindex="1">
+            <br>
+          <small type="submit" class="btn btn-primary" onclick= SetTariff()>Set</small >
+    
+          <div id="loading" class="spinner-border mt-2" style="width: 3rem; height: 3rem; align-self: center; display: none;" role="status">
+        </div>
+        </form>
+     
+
+
+     
+        <form  class="mb-2 card shadow p-3 mt-5"  style="width: 30rem; align-self: center;">
+          <div class="mb-3">
+            <h4>Set Customer Max load</h4>
+            <h6 style="color: rgb(3, 119, 7);">Current Load Limit per Meter: <span id ="Setmaxloads"></span>Watt</h6>
+            <h6  style="color: red;"></h6>
+         
+            <label class="form-label" for="password" >Max Load</label>
+            <input type="text" id="maxload"  class="form-control" autofocus placeholder="watt" tabindex="1">
+          <br>
+          <small type="submit" class="btn btn-success" onclick= SetMaxload()>Set</small >
+    
+          <div id="loading" class="spinner-border mt-2" style="width: 3rem; height: 3rem; align-self: center; display: none;" role="status">
+        </div>
+        </form>
+
+</div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+       <script src="../assets/js/bootstrap.bundle.min.js"></script>
+       <script src="../assets/js/general.js"></script>
+       <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase.js"></script>
+       <!--<script src="../render/series-label.js"></script>  -->
+
+
+   <script type="text/javascript">
+
+    // Your web app's Firebase configuration
+  const firebaseConfig = {
+  apiKey: "AIzaSyAThgvytadvWISNOMDL7yPtjf9QTGe-WUs",
+  authDomain: "smart-energy-meter-1207a.firebaseapp.com",
+  databaseURL: "https://smart-energy-meter-1207a-default-rtdb.firebaseio.com",
+  projectId: "smart-energy-meter-1207a",
+  storageBucket: "smart-energy-meter-1207a.appspot.com",
+  messagingSenderId: "1084813156816",
+  appId: "1:1084813156816:web:7426d090a21729085299d5",
+  measurementId: "G-1W4S736QR1"
+  };
+
+        // Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+getData();
+
+  const tariff=document.getElementById("tariff");
+  const maxload=document.getElementById("maxload");
+  
+
+  const Settariffs =document.getElementById("Settariffs");
+  const Setmaxloads =document.getElementById("Setmaxloads");
+
+
+  function getData(){
+  var ref = firebase.database().ref().child('tariff');
+  
+  ref.on('value', function(snap) { 
+    const data = snap.val();
+    console.log('SetTariff:' );
+    console.log(data.rate);
+    Settariffs.innerHTML = data.rate ;
+    
+  }); 
+
+  var ref = firebase.database().ref().child('LoadControl/Maxload');
+  
+  ref.on('value', function(snap) { 
+    const data = snap.val();
+    console.log('Maximunload:' );
+    console.log(data.Watt);
+    Setmaxloads.innerHTML = data.Watt;
+    
+  }); 
+
+}
+
+   function SetTariff(){
+    //const app = firebase.initializeApp(firebaseConfig);
+    const tariffValue =  tariff.value.trim();
+    if (tariffValue === ''){
+      alert('Input Empty')
+    }
+    else{
+      firebase.database().ref("tariff")
+    .set({
+      rate:tariffValue
+    });
+    getData();
+
+    }
+   }
+
+
+
+   function SetMaxload(){
+    const maxloadValue =  maxload.value.trim();
+    if (maxloadValue === ''){
+      alert('Input Empty')
+    }
+    else{
+      firebase.database().ref("LoadControl/Maxload")
+    .set({
+      Watt:maxloadValue
+    });
+    getData();
+
+    }
+   }
+
+       </script>
+  </body>
+</html>

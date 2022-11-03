@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Option 1: Bootstrap Style with Popper -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/chart.css" />
+    <style>
+   .body {
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 0 20px;
+}
+   .container {
+  border: 2px solid #57b9c0;
+  background-color: #f3f5f798;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: right;
+  max-width: 60px;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+
+
+.time-left {
+  float: left;
+  color: rgb(0, 0, 0);
+}
+        
+        </style>
+  </head>
+  <body>
+    
+      <div style="margin-left: 20px;">
+        <h4 id ="status">datetime</h5> 
+      </div>
+    <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Select Date</label>
+            <input type="date" class="form-control" id="searchdate">
+            <small type="submit" class="" onclick= submit() style="background-color: rgb(24, 30, 209); border-radius: 2px;
+             padding: 5px; font-size: 15px; color: white;">Search</small >
+          </div>
+          
+          <h2 id="loading"  style="align-self: center; display: none; color: black;">
+                 Loading....Please Wait!
+          </h2>
+
+      <div class="main" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+      box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+    
+          <figure class="highcharts-figure">
+            <div id="container"></div>
+            <p class="highcharts-description">
+                Chart showing a combination of Solar Radiation and PV Voltage, using multiple
+                y-axes. Using multiple axes allows for data within different ranges to
+                be visualized together.
+            </p>
+
+        
+        </figure>
+      </div> 
+
+      <div class="main" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+      box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+    
+          <figure class="highcharts-figure">
+            <div id="container2"></div>
+            <p class="highcharts-description">
+                Chart showing a combination of Temperature and Humidity, using multiple
+                y-axes. Using multiple axes allows for data within different ranges to
+                be visualized together.
+            </p>
+
+        
+        </figure>
+      </div> 
+
+
+      <div class="main" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+      box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+    
+          <figure class="highcharts-figure">
+            <div id="container3"></div>
+            <p class="highcharts-description">
+                Chart showing a combination of Light Intensity and Pressure, using multiple
+                y-axes. Using multiple axes allows for data within different ranges to
+                be visualized together.
+            </p>
+
+        
+        </figure>
+      </div> 
+
+
+      <div class="main" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+      box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+    
+          <figure class="highcharts-figure">
+            <div id="container4"></div>
+            <p class="highcharts-description">
+                Chart showing a combination of Power and Current , using multiple
+                y-axes. Using multiple axes allows for data within different ranges to
+                be visualized together.
+            </p>
+
+        
+        </figure>
+      </div> 
+    
+      <br>
+      <br>
+  
+            <div>
+    
+            </div>
+    
+            <script src="../render/highcharts.js"></script>
+            <script src="../render/exporting.js"></script>
+            <script src="../render/export-data.js"></script>
+            <script src="../render/accessibility.js"></script>  
+            <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase.js"></script>
+            <!--<script src="../render/series-label.js"></script>  -->
+            
+            <script type="text/javascript">
+
+             let solarRad =  0;
+             let humidity =  0;
+             let temp =      0;
+             let pressure =  0;
+             let light =     0;
+             let power =     0;
+             let voltage =   0;
+             let current =   0;
+
+             let h6;
+             let h7;
+             let h8;
+             let h9;
+             let h10;
+             let h11;
+             let h12;
+             let h13;
+             let h14;
+             let h15;
+             let h16;
+             let h17;
+             let h18;
+
+               // Your web app's Firebase configuration
+    const firebaseConfig = {
+    apiKey: "AIzaSyDIoP-iEOo-6UXQw8pKsLWVCWE_Du_gopc",
+    authDomain: "solar-logger-1a8b7.firebaseapp.com",
+    databaseURL: "https://solar-logger-1a8b7-default-rtdb.firebaseio.com",
+    projectId: "solar-logger-1a8b7",
+    storageBucket: "solar-logger-1a8b7.appspot.com",
+    messagingSenderId: "418381979032",
+    appId: "1:418381979032:web:7484462d08c082aa915fed",
+    measurementId: "G-2EMQM7PQE1"
+  };
+  
+    // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+
+   // var date = new Date().getDate(); //Current Date
+   // var month = new Date().getMonth(); //Current Month
+   // var year = new Date().getFullYear(); //Current Year
+
+    var date; //Current Date
+    var month; //Current Month
+    var year; //Current Year
+    var thisMonth ;
+    
+    const searchdate = document.getElementById("searchdate");
+    const loading=document.getElementById("loading");
+    const status=document.getElementById("status");
+
+//status.innerHTML = year + "-" + thisMonth + "-" + date;
+function submit(){
+loading.style.display = "block";
+const searchdateValue =  searchdate.value.trim();
+console.log("searchdateValue");
+console.log(searchdateValue);
+var splitdate = searchdateValue.split("-");
+year = splitdate[0]
+month = splitdate[1]
+date = splitdate[2]
+console.log("searchdateValue");
+console.log(searchdateValue);
+console.log(year);
+console.log(month);
+console.log(date);
+var months    = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var mon = parseInt(month, 10)
+thisMonth = months[mon-=1]
+status.innerHTML = year + "-" + thisMonth + "-" + date;
+load();
+}
+
+//load();
+
+function load(){
+console.log("Data..................");   
+console.log(year);
+console.log(thisMonth);
+console.log(month);
+console.log(date);
+
+  var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "06:00");
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('6:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h6 = data;
+            }
+            else{
+                h6 = 0.0;
+            }
+            
+          });
+
+    var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "07:00");
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('7:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h7 = data;
+            }
+            else{
+                h7 = 0.0;
+            }
+          });  
+          
+          var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "08:00");
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('8:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h8 = data;
+            }
+            else{
+                h8 = 0.0;
+            }
+          });
+          
+          var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "09:00");
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('9:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h9 = data;
+            }
+            else{
+                h9 = 0.0;
+            }
+          });
+
+          var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "10:00");
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('10:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h10 = data;
+            }
+            else{
+                h10 = 0.0;
+            }
+          });
+
+
+          var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "11:00");
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('11:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h11 = data;
+            }
+            else{
+                h11 = 0.0;
+            }
+          });
+
+          var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "12:00");
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('12:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h12 = data;
+            }
+            else{
+                h12 = 0.0;
+            }
+          });
+          
+          var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "13:00");
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('13:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h13 = data;
+            }
+            else{
+                h13 = 0.0;
+            }
+
+          });
+
+
+          var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "14:00");
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('14:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h14 = data;
+            }
+            else{
+                h14 = 0.0;
+            }
+          });
+
+          var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "15:00");
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('15:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h15 = data;
+            }
+            else{
+                h15 = 0.0;
+            }
+          });
+
+          var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "16:00");
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('16:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h16 = data;
+            }
+            else{
+                h16 = 0.0;
+            }
+          });
+
+          var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "17:00");
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('17:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h17 = data;
+            }
+            else{
+                h17 = 0.0;
+            }
+          });
+
+          var ref = firebase.database().ref().child('DataLog'+'/'+ year +'/'+ thisMonth +'/'+ date +'/'+ "18:00");
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('18:00' );
+            console.log(data);
+            if (data != null)
+            {
+                h18 = data;
+            }
+            else{
+                h18 = 0.0;
+            }
+        
+          });
+
+
+          var loaded = 0;
+
+          setInterval(function ( ) {
+          console.log("solarRad");
+          console.log(h13);
+          console.log(h14);
+          console.log(h18);
+          loaded = 1;
+          }, 10000 ) ;
+
+           
+   
+setTimeout(function() {
+    if (loaded === 1)  {  
+   console.log("loaded")
+   loading.style.display = "none";
+   Highcharts.chart('container', {
+    chart: {
+        zoomType: 'xy'
+    },
+    title: {
+        text: 'Average Daily Solar Radiation and Power  Analytics Chart'
+    },
+    subtitle: {
+        text: 'Source: Electronics lab Auchi Polytechnic'
+    },
+    xAxis: [{
+        categories: ['6:00AM', '7:00AM', '8:00AM', '9:00AM',
+            '10:00AM', '11:00AM', '12:00PM', '1:00PM', '2:00PM', '3:00PM', '4:00PM', '5:00PM', '6:00PM'],
+        crosshair: true
+    }],
+    yAxis: [{ // Primary yAxis
+        labels: {
+            format: '{value}volt',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        },
+        title: {
+            text: 'PV Output Voltage',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        }
+    }, { // Secondary yAxis
+        title: {
+            text: 'Solar Radiation',
+            style: {
+                color: Highcharts.getOptions().colors[3]
+            }
+        },
+        labels: {
+            format: '{value} w/m2',
+            style: {
+                color: Highcharts.getOptions().colors[3]
+            }
+        },
+        opposite: true
+    }],
+    tooltip: {
+        shared: true
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        x: 120,
+        verticalAlign: 'top',
+        y: 100,
+        floating: true,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || // theme
+            'rgba(255,255,255,0.25)'
+    },
+    series: [{
+        name: 'Solar Radiation',
+        type: 'column',
+        yAxis: 1,
+        color:'rgb(238, 71, 10)',
+
+        data: [parseFloat(h6.solarRad), parseFloat(h7.solarRad), parseFloat(h8.solarRad), parseFloat(h9.solarRad),
+        parseFloat(h10.solarRad), parseFloat(h11.solarRad), parseFloat(h12.solarRad), parseFloat(h13.solarRad), parseFloat(h14.solarRad), 
+         parseFloat(h15.solarRad), parseFloat(h16.solarRad), parseFloat(h17.solarRad), parseFloat(h18.solarRad)],
+        tooltip: {
+            valueSuffix: 'm/w2'
+        }
+
+    }, {
+        name: 'PV Voltage',
+        type: 'column',
+        color:'rgb(3, 1, 26)',
+        data: [parseInt(h6.voltage), parseInt(h7.voltage), parseInt(h8.voltage), parseInt(h9.voltage), parseInt(h10.voltage), parseInt(h11.voltage),
+        parseInt(h12.voltage), parseInt(h13.voltage), parseInt(h14.voltage),
+         parseInt(h15.voltage), parseInt(h16.voltage), parseInt(h17.voltage), parseInt(h18.voltage)],
+        tooltip: {
+            valueSuffix: 'volt'
+        } 
+    }]
+});
+} 
+     else{
+         let container = document.getElementById("container");
+         container.innerHTML = "Loading Data Error"
+     }
+}, 10500);
+
+setTimeout(function() {
+    if (loaded === 1)  {  
+   console.log("loaded")
+
+   Highcharts.chart('container2', {
+    chart: {
+        zoomType: 'xy'
+    },
+    title: {
+        text: 'Average Daily Temperature and Humidity Analytics Chart'
+    },
+    subtitle: {
+        text: 'Source: Electronics lab Auchi Polytechnic'
+    },
+    xAxis: [{
+        categories: ['6:00AM', '7:00AM', '8:00AM', '9:00AM',
+            '10:00AM', '11:00AM', '12:00PM', '1:00PM', '2:00PM', '3:00PM', '4:00PM', '5:00PM', '6:00PM'],
+        crosshair: true
+    }],
+    yAxis: [{ // Primary yAxis
+        labels: {
+            format: '{value}℃',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        },
+        title: {
+            text: 'Temperature',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        }
+    }, { // Secondary yAxis
+        title: {
+            text: 'Humidity',
+            style: {
+                color: Highcharts.getOptions().colors[4]
+            }
+        },
+        labels: {
+            format: '{value} %',
+            style: {
+                color: Highcharts.getOptions().colors[4]
+            }
+        },
+        opposite: true
+    }],
+    tooltip: {
+        shared: true
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        x: 120,
+        verticalAlign: 'top',
+        y: 100,
+        floating: true,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || // theme
+            'rgba(255,255,255,0.25)'
+    },
+    series: [{
+        name: 'Humidity',
+        type: 'column',
+        yAxis: 1,
+        color:'rgb(10, 33, 238)',
+
+        data: [parseInt(h6.humidity), parseInt(h7.humidity), parseInt(h8.humidity), parseInt(h9.humidity), parseInt(h10.humidity), parseInt(h11.humidity),
+        parseInt(h12.humidity), parseInt(h13.humidity), parseInt(h14.humidity),
+         parseInt(h15.humidity), parseInt(h16.humidity), parseInt(h17.humidity), parseInt(h18.humidity)],
+        tooltip: {
+            valueSuffix: '%'
+        }
+
+    }, {
+        name: 'Temperature',
+        type: 'column',
+        color:'rgb(3, 1, 26)',
+        data: [parseInt(h6.temp), parseInt(h7.temp), parseInt(h8.temp), parseInt(h9.temp), parseInt(h10.temp), parseInt(h11.temp),
+        parseInt(h12.temp), parseInt(h13.temp), parseInt(h14.temp),
+         parseInt(h15.temp), parseInt(h16.temp), parseInt(h17.temp), parseInt(h18.temp)],
+        tooltip: {
+            valueSuffix: '℃'
+        }
+    }]
+});
+} 
+     else{
+         let container = document.getElementById("container2");
+         container.innerHTML = "Loading Data Error"
+     }
+}, 10500);
+
+
+setTimeout(function() {
+    if (loaded === 1)  {  
+   console.log("loaded")
+
+   Highcharts.chart('container3', {
+    chart: {
+        zoomType: 'xy'
+    },
+    title: {
+        text: 'Average Daily Light and Pressure Analytics Chart'
+    },
+    subtitle: {
+        text: 'Source: Electronics lab Auchi Polytechnic'
+    },
+    xAxis: [{
+        categories: ['6:00AM', '7:00AM', '8:00AM', '9:00AM',
+            '10:00AM', '11:00AM', '12:00PM', '1:00PM', '2:00PM', '3:00PM', '4:00PM', '5:00PM', '6:00PM'],
+        crosshair: true
+    }],
+    yAxis: [{ // Primary yAxis
+        labels: {
+            format: '{value}lux',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        },
+        title: {
+            text: 'Light Intensity',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        }
+    }, { // Secondary yAxis
+        title: {
+            text: 'Pressure',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        labels: {
+            format: '{value} hPa',
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+        },
+        opposite: true
+    }],
+    tooltip: {
+        shared: true
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        x: 120,
+        verticalAlign: 'top',
+        y: 100,
+        floating: true,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || // theme
+            'rgba(255,255,255,0.25)'
+    },
+    series: [{
+        name: 'Pressure',
+        type: 'column',
+        yAxis: 1,
+
+        data: [parseInt(h6.pressure), parseInt(h7.pressure), parseInt(h8.pressure), parseInt(h9.pressure), parseInt(h10.pressure), parseInt(h11.pressure),
+        parseInt(h12.pressure), parseInt(h13.pressure), parseInt(h14.pressure),
+         parseInt(h15.pressure), parseInt(h16.pressure), parseInt(h17.pressure), parseInt(h18.pressure)],
+        tooltip: {
+            valueSuffix: 'PSI'
+        }
+
+    }, {
+        name: 'Light Intensity',
+        type: 'column',
+        data: [parseInt(h6.light), parseInt(h7.light), parseInt(h8.light), parseInt(h9.light), parseInt(h10.light), parseInt(h11.light),
+        parseInt(h12.light), parseInt(h13.light), parseInt(h14.light),
+         parseInt(h15.light), parseInt(h16.light), parseInt(h17.light), parseInt(h18.light)],
+        tooltip: {
+            valueSuffix: 'lux'
+        }
+    }]
+});
+} 
+     else{
+         let container = document.getElementById("container3");
+         container.innerHTML = "Loading Data Error"
+     }
+}, 10500);
+
+setTimeout(function() {
+    if (loaded === 1)  {  
+   console.log("loaded")
+
+   Highcharts.chart('container4', {
+    chart: {
+        zoomType: 'xy'
+    },
+    title: {
+        text: 'Average Daily PV Power  and PV Current Analytics Chart'
+    },
+    subtitle: {
+        text: 'Source: Electronics lab Auchi Polytechnic'
+    },
+    xAxis: [{
+        categories: ['6:00AM', '7:00AM', '8:00AM', '9:00AM',
+            '10:00AM', '11:00AM', '12:00PM', '1:00PM', '2:00PM', '3:00PM', '4:00PM', '5:00PM', '6:00PM'],
+        crosshair: true
+    }],
+    yAxis: [{ // Primary yAxis
+        labels: {
+            format: '{value}watt',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        },
+        title: {
+            text: 'PV Power',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        }
+    }, { // Secondary yAxis
+        title: {
+            text: 'PV Current',
+            style: {
+                color: Highcharts.getOptions().colors[6]
+            }
+        },
+        labels: {
+            format: '{value} Amps',
+            style: {
+                color: Highcharts.getOptions().colors[6]
+            }
+        },
+        opposite: true
+    }],
+    tooltip: {
+        shared: true
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        x: 120,
+        verticalAlign: 'top',
+        y: 100,
+        floating: true,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || // theme
+            'rgba(255,255,255,0.25)'
+    },
+    series: [{
+        name: 'PV Current',
+        type: 'column',
+        yAxis: 1,
+        color:'rgb(235, 219, 0)',
+
+        data: [parseInt(h6.current), parseInt(h7.current), parseInt(h8.current), parseInt(h9.current), parseInt(h10.current), parseInt(h11.current),
+        parseInt(h12.current), parseInt(h13.current), parseInt(h14.current),
+         parseInt(h15.current), parseInt(h16.current), parseInt(h17.current), parseInt(h18.current)],
+        tooltip: {
+            valueSuffix: 'Amps'
+        }
+
+    }, {
+        name: 'PV Output Power',
+        type: 'column',
+        color:'rgb(3, 1, 26)',
+        data: [parseInt(h6.power), parseInt(h7.power), parseInt(h8.power), parseInt(h9.power), parseInt(h10.power), parseInt(h11.power),
+        parseInt(h12.power), parseInt(h13.power), parseInt(h14.power),
+         parseInt(h15.power), parseInt(h16.power), parseInt(h17.power), parseInt(h18.power)],
+        tooltip: {
+            valueSuffix: 'watt'
+        }
+    }]
+});
+} 
+     else{
+         let container = document.getElementById("container4");
+         container.innerHTML = "Loading Data Error"
+     }
+}, 10500);
+
+}
+</script>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  </body>
+</html>

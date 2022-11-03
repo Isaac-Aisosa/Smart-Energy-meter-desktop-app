@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Preboto Daily Trade</title>
+    <!-- Option 1: Bootstrap Style with Popper -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/general.css" />
+  </head>
+  <body style="background-color: #ffffff;">
+
+    <div id="main" style="display: block;">
+      <nav class="navbar-expand-lg  navbar-dark bg-dark">
+        <div class="container-fluid" style="align-items: center;">
+         
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+              <li class="nav-item">
+                <a class="nav-link active" style="font-size: 20px; font-weight: bold;" aria-current="page" href="">Energy</a>
+              </li>
+          
+         
+          </div>
+        </div>
+      </nav>
+ 
+      <div style="margin-top: 40px; margin-left: 20px;">
+        <span class="h3 fw-bold mb-0" style="color: rgb(13, 3, 61);">Energy Amount Bought: </span>
+      </div>
+  
+      <div style="margin-top: 40px; margin-left: 20px;">
+        <span class="h3 fw-bold mb-0" style="color: rgb(3, 61, 5);">Sold Energy History</span>
+      </div>
+     
+      <div id="Table" style="display:block;">
+        <table class="table table-striped table-hover mt-1" style="font-size: 20px;">
+          <thead>
+            <tr>
+              <th scope="col">S/N</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Meter Number</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Unit</th>
+              <th scope="col">Location</th>
+              <th scope="col">Status</th>
+              <th scope="col">Time</th>
+        
+            </tr>
+          </thead>
+            <tbody id= "result"></tbody>
+        </table>
+
+        <h1 id= "data"></h1>
+      </div>
+        
+ 
+
+  
+      </div>
+      
+  
+  
+    </div>
+    </div>
+   
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+       <script src="../assets/js/bootstrap.bundle.min.js"></script>
+       <script src="../assets/js/general.js"></script>
+       <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase.js"></script>
+       <!--<script src="../render/series-label.js"></script>  -->
+
+
+  <script type="text/javascript">
+
+  var table = "";
+    // Your web app's Firebase configuration
+  const firebaseConfig = {
+  apiKey: "AIzaSyAThgvytadvWISNOMDL7yPtjf9QTGe-WUs",
+  authDomain: "smart-energy-meter-1207a.firebaseapp.com",
+  databaseURL: "https://smart-energy-meter-1207a-default-rtdb.firebaseio.com",
+  projectId: "smart-energy-meter-1207a",
+  storageBucket: "smart-energy-meter-1207a.appspot.com",
+  messagingSenderId: "1084813156816",
+  appId: "1:1084813156816:web:7426d090a21729085299d5",
+  measurementId: "G-1W4S736QR1"
+  };
+
+        // Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+
+function getData(){
+  var ref = firebase.database().ref().child('BuyEnergy');
+  
+  ref.on('value', function(snap) { 
+    const data = snap.val();
+    console.log('Data:' );
+    console.log(data);
+  //   let number = 56429970;
+  //   for(var i in data){
+	// 		table += "<tr>";
+	// 		table += "<td>" 
+	// 				+ (parseInt(i)+1) +"</td>" 
+	// 				+ "<td>" + data.object[i]+"</td>" 
+	// 				// + "<td>"+"<b>" + data.object[i].creditCode +"<b>"+"</td>"
+  //         // + "<td>" + data.object[i].meterNumber +"</td>"
+  //         // + "<td>"+"<b>"+ data.object[i].name+"<b>"+"</td>"
+  //         // + "<td>" + data.object[i].tariff +"</td>"
+  //         // + "<td>"+"<b>" + '₦ ' + data.object[i].unit +"<b>"+"</td>"
+     
+	// 		table += "</tr>";
+	// 	}
+
+	// document.getElementById("result").innerHTML = data;
+   for(var i in data){
+    document.getElementById("data").innerHTML = (parseInt(i)+1);
+   }
+ 
+  }); 
+}
+
+getData();
+       
+</script>
+
+
+ </body>
+</html>

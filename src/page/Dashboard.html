@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <!-- Option 1: Bootstrap Style with Popper -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/general.css" />
+    <link
+    rel="stylesheet"
+    href="../contrast-bootstrap-pro/css/bootstrap.min.css" />
+  <link
+    rel="stylesheet"
+    href="../contrast-bootstrap-pro/css/cdb.css" />
+    <style>
+      .chart-container {
+        width: 50%;
+        height: 50%;
+        margin: auto;
+        background-color: rgb(255, 255, 255);
+      }
+    </style>
+  </head>
+  <body style="background-color: #eef1f6;">
+   
+<div id ="boto" style="position: absolute; right: 0rem; top: 1rem; background-color: black; border-top-left-radius: 50px; border-bottom-left-radius: 50px; width: 90px;">
+  <img src="../assets/icons/logo.png" style="width: 70px; height: 70px;">
+</div>
+
+     <div class="container mt-2" style="align-items: center;">
+      
+      <div class="row">
+        <div class="card shadow p-3 mb-5" 
+        style="width: 40rem; height: 10rem; align-self: center; border-radius: 20px; background-color: #03a696; margin: 10px">
+          <div class="card-body">
+            <h4 class="card-title text-white">Number of Smart Meter</h4>
+              <div style="position: absolute; right: 2rem; top: 1rem;">
+                <img src="../assets/images/sm.png" style="width: 70px; height: 70px;">
+              </div>
+                <p id="meternumber" class="card-subtitle text-white" style="font-size:40px; padding: 0px; margin: 0px;">0</p>
+             </div>
+        </div>
+
+        <div class="card shadow p-3 mb-5" 
+        style="width: 40rem; height: 10rem; align-self: center; border-radius: 20px; background-color: rgb(24, 24, 24); margin: 10px">
+          <div class="card-body">
+            <h4 class="card-title text-white">Total Energy Consumed</h4>
+              <div style="position: absolute; right: 2rem; top: 1rem;">
+                <img src="../assets/images/energy.png" style="width: 70px; height: 70px;">
+              </div> 
+                <p id="EnergyConsumed" class="card-subtitle mb-2 text-white" style="font-size:40px;">0</p>
+              
+              </div>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col">
+          <div class="card shadow p-3 mb-5" 
+          style="width: 40rem; height: 10rem; align-self: center; border-radius: 20px; background-color: #03a696;">
+          <a href="./newDeposit.html" style="text-decoration: none;">
+            <div class="card-body">
+              <h5 class="card-title text-white">Maximum Load per Meter</h5>
+                <div style="position: absolute; right: 2rem; bottom: 1rem;">
+                  <img src="../assets/images/online.png" style="width: 60px; height: 60px;">
+                </div>
+          
+                  <p id="maxload" class="card-subtitle mb-2 text-white" style="font-size:30px;">0</p>
+    
+                
+            </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- <div class="col">
+          <div class="card shadow p-3 mb-5" 
+          style="width: 18rem; height: 10rem; align-self: center; border-radius: 20px; background-color: #03a696;">
+          <a href="./withdrawRequest.html" style="text-decoration: none;">
+          <div class="card-body">
+              <h5 class="card-title text-white">Offline Meter</h5>
+                <div style="position: absolute; right: 2rem; bottom: 1rem;">
+                  <img src="../assets/images/offline.png" style="width: 60px; height: 60px;">
+                </div>
+                <div style="flex-direction: row;">
+                  <p id="offline" class="card-subtitle mb-2 text-white" style="font-size:30px;">0</p>
+                </div>
+             
+            </div>
+          </a>
+          </div>
+        </div> -->
+
+        <div class="col">
+          <div class="card shadow p-3 mb-5" 
+          style="width: 18rem; height: 10rem; align-self: center; border-radius: 20px; background-color: rgb(24, 24, 24);">
+            <div class="card-body">
+              <h5 class="card-title text-white">Billing Rates</h5>
+                <div style="position: absolute; right: 2rem; bottom: 1rem;">
+                  <img src="../assets/images/avaliable.png" style="width: 60px; height: 60px;">
+                </div>
+               
+                  <p id="tariff" class="card-subtitle mb-2 text-white" style="font-size:20px;">0</p>
+                 
+  
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card shadow p-3 mb-5" 
+          style="width: 18rem; height: 10rem; align-self: center; border-radius: 20px; background-color: rgb(24, 24, 24);">
+            <div class="card-body">
+              <h5 class="card-title text-white">Meter Status</h5>
+                <div style="position: absolute; right: 2rem; bottom: 1rem;">
+                  <img src="../assets/images/rev.webp" style="width: 60px; height: 60px;">
+                </div>
+               
+                  <p id="growth" class="card-subtitle mb-2 text-white" style="font-size:20px;">Active</p>
+            
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="card shadow p-3 mb-5" 
+      style="width: 80rem; height: 20rem; align-self: center; border-radius: 20px; background-color: rgb(24, 24, 24);">
+      <div class="card-body">
+          <h5 class="card-title text-white">Meter(<span id ='Mnumber' style="color: #03a696;">0</span>) RealTime Data</h5>
+            <div style="position: absolute; right: 2rem; bottom: 1rem;">
+              <img src="../assets/images/online.png" style="width: 60px; height: 60px;">
+            </div>
+             <div class="row">
+              <p class="card-subtitle mb-2 text-white" style="font-size:30px;">Energy Unit: <span id="unit" style="font-size:30px; color: #03a696;"> 0 </span></p>
+          
+                 <div class="col">
+                  <p class="card-subtitle mb-2 text-white" style="font-size:20px;">Power</p>
+                  <p id="power" class="card-subtitle mb-2 " style="font-size:30px; color: #03a696;">0</p>
+                 </div>
+
+                 <div class="col">
+                  <p class="card-subtitle mb-2 text-white" style="font-size:20px;">Voltage</p>
+                  <p id="volt" class="card-subtitle mb-2 " style="font-size:30px; color: #03a696;">0</p>
+                 </div>
+
+                 <div class="col">
+                  <p class="card-subtitle mb-2 text-white" style="font-size:20px;">Current</p>
+                  <p id="amp" class="card-subtitle mb-2" style="font-size:30px;color: #03a696;">0</p>
+                 </div>
+
+                 <div class="col">
+                  <p class="card-subtitle mb-2 text-white" style="font-size:20px;">Consumed Energy</p>
+                  <p id="wh" class="card-subtitle mb-2 " style="font-size:30px;color: #03a696;">0</p>
+                 </div>
+
+                 <div class="col">
+                  <p class="card-subtitle mb-2 text-white" style="font-size:20px;">Frequency</p>
+                  <p id="freq" class="card-subtitle mb-2" style="font-size:30px;color: #03a696;">0</p>
+                 </div>
+
+                 <div class="col">
+                  <p class="card-subtitle mb-2 text-white" style="font-size:20px;">Power Factor</p>
+                  <p id="pf" class="card-subtitle mb-2" style="font-size:30px;color: #03a696;">0</p>
+                 </div>
+             </div>
+            
+        </div>
+      
+      </div>
+    
+    </div>
+
+    
+
+
+   
+
+  </div>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+       <script src="../assets/js/bootstrap.bundle.min.js"></script>
+       <script src="../assets/js/general.js"></script>
+       <script
+       src="../contrast-bootstrap-pro/js/cdb.js"></script>
+     <script
+       src="../contrast-bootstrap-pro/js/bootstrap.min.js"></script>
+     <script
+       src="https://kit.fontawesome.com/9d1d9a82d2.js"
+       crossorigin="anonymous"></script>
+       <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase.js"></script>
+       <!--<script src="../render/series-label.js"></script>  -->
+
+
+       <script type="text/javascript">
+
+
+  let Meternumber =document.getElementById("meternumber");
+  let EnergyConsumed =document.getElementById("EnergyConsumed");
+  let tariff = document.getElementById('tariff');
+  let maxload = document.getElementById('maxload');
+  let Mnumber = document.getElementById('Mnumber');
+
+  let unit = document.getElementById('unit');
+  let volt = document.getElementById('volt');
+  let amp = document.getElementById('amp');
+  let power = document.getElementById('power');
+  let freq = document.getElementById('freq');
+  let pf = document.getElementById('pf');
+  let wh = document.getElementById('wh');
+  var MeterNumber;
+
+   
+
+
+
+               // Your web app's Firebase configuration
+    const firebaseConfig = {
+  apiKey: "AIzaSyAThgvytadvWISNOMDL7yPtjf9QTGe-WUs",
+  authDomain: "smart-energy-meter-1207a.firebaseapp.com",
+  databaseURL: "https://smart-energy-meter-1207a-default-rtdb.firebaseio.com",
+  projectId: "smart-energy-meter-1207a",
+  storageBucket: "smart-energy-meter-1207a.appspot.com",
+  messagingSenderId: "1084813156816",
+  appId: "1:1084813156816:web:7426d090a21729085299d5",
+  measurementId: "G-1W4S736QR1"
+  };
+
+
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+
+
+      //get number of meter..................
+      var ref = firebase.database().ref().child('SmartMeter/MeterNumber');
+        
+        ref.on('value', function(snap) { 
+          const data = snap.val();
+          console.log('SmartMeter:' );
+          console.log(data);
+          MeterNumber = data;
+          Mnumber.innerHTML = data;
+          Meternumber.innerHTML = 1;
+       
+          var ref = firebase.database().ref().child('SmartMeter/RealTime/Reading/'+ MeterNumber);
+          ref.on('value', function(snap) { 
+          const data = snap.val();
+          console.log('EnergyConsumed:' );
+          console.log(data);
+          EnergyConsumed.innerText = data.Energy;
+          volt.innerText = data.Voltage.toFixed(0)+'Volt';
+          amp.innerText = data.Current+'Amp';
+          power.innerText = data.Power+'Watt';
+          unit.innerText = data.EnergyUnit.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')+'Wh';
+          pf.innerText = data.PowerFactor+'pf';
+          wh.innerText = data.Energy+'KWh';
+          freq.innerText = data.Frequency+'Hz';
+
+
+
+        });
+
+        });
+
+        var ref = firebase.database().ref().child('tariff');
+          ref.on('value', function(snap) { 
+          const data = snap.val();
+          console.log('Tariff:' );
+          console.log(data.rate);
+          tariff.innerText = 'NGN '+ data.rate +'/kwh'
+        });
+
+        var ref = firebase.database().ref().child('LoadControl/Maxload');
+         ref.on('value', function(snap) { 
+         const data = snap.val();
+         console.log('Maximunload:' );
+         console.log(data.Watt);
+         console.log(data.Watt);
+         if (data.Watt == '0'){
+          maxload.innerText = 'Unlimited';
+         }
+         else{
+          maxload.innerText = data.Watt + 'Watt';
+         }
+  
+        });
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Option 1: Bootstrap Style with Popper -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/general.css" />
+  </head>
+  <body>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a id="daily" class="nav-link active" style="color:rgb(223, 60, 1);" aria-current="page" href="#">Daily</a>
+      </li>
+      <li class="nav-item" style="display: none;">
+        <a  id="weekly" class="nav-link" style="color:black;" aria-current="page" href="#">Week Interval</a>
+      </li>
+      <li class="nav-item" style="display: none;">
+        <a  id="monthly" class="nav-link" style="color:black;" aria-current="page" href="#">Months Interval</a>
+      </li>
+     <li class="nav-item" style="display: none;">
+        <a id="yearly" class="nav-link" style="color:black;" aria-current="page" href="#">an</a>
+      </li>  
+   
+
+      <li class="nav-item">
+        <a class="nav-link disabled">Solar Data Analytics</a>
+      </li>
+    </ul>
+<div style="margin-top: 20px;">
+    <iframe id="dailyAnalytics" src="../page/dailyAnalytics.html" 
+    style=" height: 100vh; width: 100%; display: block;" title="RTLogger"></iframe>
+  
+    <iframe id="weeklyAnalytics" src="../page/weeklyAnalytics.html" 
+    style=" height: 100vh; width: 100%; display: none;" title="RTLogger"></iframe>
+  
+    <iframe id="monthlyAnalytics" src="../page/monthlyAnalytics.html" 
+    style=" height: 100vh; width: 100%; display: none;" title="RTLogger"></iframe>
+  
+  
+    <iframe id="yearlyAnalytics" src="../page/yearlyAnalytics.html" 
+    style=" height: 100vh; width: 100%; display: none;" title="RTLogger"></iframe>
+
+  </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+       <script src="../assets/js/bootstrap.bundle.min.js"></script>
+       <script src="../assets/js/general.js"></script>
+       <script src="../assets/js/analytics.js"></script>
+  </body>
+</html>

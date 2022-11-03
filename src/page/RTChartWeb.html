@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Option 1: Bootstrap Style with Popper -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/chart.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light">
+        <form class="container-fluid justify-content-start">
+  
+          <a href="#" data-bs-toggle="tooltip" data-bs-placement="center" title="internet Network" 
+          style=" padding-left: 10px;
+                  padding-right: 10px;
+                  padding-bottom: 2px;
+                  background-color: #eef1f6;
+                  border-bottom: 6px solid #4f546c;
+                  border-radius: 10px;">
+            <svg id="icon-cloud-download" viewBox="0 0 32 32" width="100" title="web"
+            style="  color: #4f546c;
+                     width: 2rem;
+                     fill: #4f546c" >
+                     
+              <path d="M27.844 11.252c-0.101-4.022-3.389-7.252-7.433-7.252-2.369 0-4.477 1.109-5.839 2.835-0.764-0.987-1.959-1.624-3.303-1.624-2.307 0-4.176 1.871-4.176 4.179 0 0.201 0.015 0.399 0.043 0.592-0.351-0.063-0.711-0.098-1.080-0.098-3.344-0-6.054 2.712-6.054 6.058s2.71 6.058 6.054 6.058h2.868l7.078 7.328 7.078-7.328 3.484-0c3.004-0.006 5.438-2.444 5.438-5.451 0-2.565-1.771-4.716-4.156-5.296zM16 26l-6-6h4v-6h4v6h4l-6 6z"></path>
+              </svg>
+            </a>
+  
+        
+         <a href="./RTChartLocal.html" data-bs-toggle="tooltip" data-bs-placement="center" title="Local Network" 
+         style="padding-left: 10px;
+                padding-right: 10px;
+               padding-bottom: 2px;">
+  
+  <svg id="icon-connection" viewBox="0 0 40 32" width="100" title="local" 
+  style="  width: 2rem;">
+    <path d="M20 18c3.308 0 6.308 1.346 8.481 3.519l-2.827 2.827c-1.449-1.449-3.449-2.346-5.654-2.346s-4.206 0.897-5.654 2.346l-2.827-2.827c2.173-2.173 5.173-3.519 8.481-3.519zM5.858 15.858c3.777-3.777 8.8-5.858 14.142-5.858s10.365 2.080 14.142 5.858l-2.828 2.828c-3.022-3.022-7.040-4.686-11.314-4.686s-8.292 1.664-11.314 4.686l-2.828-2.828zM30.899 4.201c3.334 1.41 6.329 3.429 8.899 6v0l-2.828 2.828c-4.533-4.533-10.56-7.029-16.971-7.029s-12.438 2.496-16.971 7.029l-2.828-2.828c2.571-2.571 5.565-4.589 8.899-6 3.453-1.461 7.12-2.201 10.899-2.201s7.446 0.741 10.899 2.201zM18 28c0-1.105 0.895-2 2-2s2 0.895 2 2c0 1.105-0.895 2-2 2s-2-0.895-2-2z"></path>
+    </svg>
+          </a>
+
+        </form>
+      </nav>
+      <div style="margin-left: 20px;">
+        <h4>Real Time Charts
+          <b style="font-size: 18px; color: rgb(2, 7, 43); padding-top: 0px;font-weight: lighter;" >
+            source:internet</b></h4>  
+        
+            <div class="main" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+            box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+              <div style="position: relative; left: 3rem; top:1rem;">
+                  <img src="../assets/images/panel3.png" style="width: 50px; height:50px;">
+               </div>
+              <figure class="highcharts-figure">
+                <div id="solarRad"></div>
+                <p class="highcharts-description">
+                    Chart showing data of Solar Radiation Real Time.
+                    <code>series-label</code>
+                </p>
+            </figure>
+            </div>  
+            
+            <div>
+    
+                <div class="child" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+                box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+                  <div style="position: relative; left: 3rem; top:1rem;">
+                      <img src="../assets/images/light.png" style="width: 50px; height:50px;">
+                   </div>
+                  <figure class="highcharts-figure">
+                    <div id="light"></div>
+                    <p class="highcharts-description">
+                        Chart showing data of light intensity Real Time.
+                        <code>series-label</code>
+                    </p>
+                </figure>
+                </div> 
+        
+                <div class="child" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+                box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+                  <div style="position: relative; left: 3rem; top:1rem;">
+                      <img src="../assets/images/temp.png" style="width: 50px; height: 50px;">
+                   </div>
+                  <figure class="highcharts-figure">
+                    <div id="temp"></div>
+                    <p class="highcharts-description">
+                        Chart showing data of Temperature Real Time.
+                        <code>series-label</code>
+                    </p>
+                </figure>
+                </div> 
+    
+                    
+                <div class="child" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+                box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+                  <div style="position: relative; left: 3rem; top:1rem;">
+                      <img src="../assets/images/humidity.png" style="width: 50px; height: 50px;">
+                   </div>
+                  <figure class="highcharts-figure">
+                    <div id="humidity"></div>
+                    <p class="highcharts-description">
+                        Chart showing data of Humidity Real Time.
+                        <code>series-label</code>
+                    </p>
+                </figure>
+                </div>
+    
+    
+                    
+                <div class="child" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+                box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+                  <div style="position: relative; left: 3rem; top:1rem;">
+                      <img src="../assets/images/pressure.png" style="width: 50px; height: 50px;">
+                   </div>
+                  <figure class="highcharts-figure">
+                    <div id="pressure"></div>
+                    <p class="highcharts-description">
+                        Chart showing data of Atmosheric Pressure Real Time.
+                        <code>series-label</code>
+                    </p>
+                </figure>
+                </div>
+    
+    
+                    
+                <div class="child" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+                box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+                  <div style="position: relative; left: 3rem; top:1rem;">
+                      <img src="../assets/images/power.png" style="width: 50px; height: 50px;">
+                   </div>
+                  <figure class="highcharts-figure">
+                    <div id="power"></div>
+                    <p class="highcharts-description">
+                        Chart showing data of PV Output Power Real Time.
+                        <code>series-label</code>
+                    </p>
+                </figure>
+                </div>
+    
+    
+                <div class="child" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+                box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+                  <div style="position: relative; left: 3rem; top:1rem;">
+                      <img src="../assets/images/voltage.png" style="width: 50px; height: 50px;">
+                   </div>
+                  <figure class="highcharts-figure">
+                    <div id="voltage"></div>
+                    <p class="highcharts-description">
+                        Chart showing data of PV Output Voltage Real Time.
+                        <code>series-label</code>
+                    </p>
+                </figure>
+                </div>
+    
+    
+                <div class="child" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+                box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+                  <div style="position: relative; left: 3rem; top:1rem;">
+                      <img src="../assets/images/current.png" style="width: 50px; height: 50px;">
+                   </div>
+                  <figure class="highcharts-figure">
+                    <div id="current"></div>
+                    <p class="highcharts-description">
+                        Chart showing data of PV Output Current Real Time.
+                        <code>series-label</code>
+                    </p>
+                </figure>
+                </div>
+             
+    
+    
+            </div>
+    
+    
+    
+    
+    
+            <script src="../render/highcharts.js"></script>
+            <script src="../render/exporting.js"></script>
+            <script src="../render/export-data.js"></script>
+            <script src="../render/accessibility.js"></script>  
+            <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase.js"></script>
+            <!--<script src="../render/series-label.js"></script>  -->
+            
+            <script type="text/javascript">
+
+             let solarRad =  0;
+             let humidity =  0;
+             let temp =      0;
+             let pressure =  0;
+             let light =     0;
+             let power =     0;
+             let voltage =   0;
+             let current =   0;
+
+               // Your web app's Firebase configuration
+    const firebaseConfig = {
+    apiKey: "AIzaSyDIoP-iEOo-6UXQw8pKsLWVCWE_Du_gopc",
+    authDomain: "solar-logger-1a8b7.firebaseapp.com",
+    databaseURL: "https://solar-logger-1a8b7-default-rtdb.firebaseio.com",
+    projectId: "solar-logger-1a8b7",
+    storageBucket: "solar-logger-1a8b7.appspot.com",
+    messagingSenderId: "418381979032",
+    appId: "1:418381979032:web:7484462d08c082aa915fed",
+    measurementId: "G-2EMQM7PQE1"
+  };
+
+    // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+
+  var ref = firebase.database().ref().child('RTData/solarRad');
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('SolarRad:' );
+            console.log(data);
+            solarRad = data
+          });
+  
+          var ref = firebase.database().ref().child('RTData/light');
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('Light:' );
+            console.log(data);
+            light = data
+          });      
+  
+          var ref = firebase.database().ref().child('RTData/temp');
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('Temp:' );
+            console.log(data);
+            temp = data
+          });
+
+          var ref = firebase.database().ref().child('RTData/humidity');
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('humidity:' );
+            console.log(data);
+            humidity = data
+          });
+
+
+          var ref = firebase.database().ref().child('RTData/pressure');
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('Pressure:' );
+            console.log(data);
+            pressure = data
+          });
+
+
+          var ref = firebase.database().ref().child('RTData/PV_voltage');
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('PV_voltage:' );
+            console.log(data);
+            voltage = data
+          });
+
+
+
+          var ref = firebase.database().ref().child('RTData/PV_current');
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('Current:' );
+            console.log(data);
+            current = data
+          });
+
+
+          var ref = firebase.database().ref().child('RTData/PV_power');
+          
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log('Power:' );
+            console.log(data);
+            power = data
+          });
+
+
+              var chartT = new Highcharts.Chart({
+                chart:{ renderTo : 'solarRad' },
+                title: { text: 'Solar Radiation Real Time chart' },
+                series: [{
+                  showInLegend: false,
+                  data: []
+                }],
+                plotOptions: {
+                  line: { animation: true,
+                    dataLabels: { enabled: true }
+                  },
+                  series: { color: '#e61010' }
+                },
+                xAxis: { type: 'datetime',
+                  dateTimeLabelFormats: { second: '%H:%M:%S' }
+                },
+                yAxis: {
+                  title: { text: 'W/M2' }
+                  //title: { text: 'Temperature (Fahrenheit)' }
+                },
+                credits: { enabled: false }
+              });
+              setInterval(function ( ) {
+                
+                    var x = (new Date()).getTime(),
+                        y = parseFloat(solarRad);
+                    //console.log(this.responseText);
+                    if(chartT.series[0].data.length > 40) {
+                      chartT.series[0].addPoint([x, y], true, true, true);
+                    } else {
+                      chartT.series[0].addPoint([x, y], true, false, true);
+                    }
+                 
+              }, 20000 ) ;
+              
+              var chartH = new Highcharts.Chart({
+                chart:{ renderTo:'light' },
+                title: { text: 'Real Time Light Intensity Reading' },
+                series: [{
+                  showInLegend: false,
+                  data: []
+                }],
+                plotOptions: {
+                  line: { animation: false,
+                    dataLabels: { enabled: true }
+                  },
+                  series: { color: 'rgb(231, 184, 29)' }
+                },
+                xAxis: {
+                  type: 'datetime',
+                  dateTimeLabelFormats: { second: '%H:%M:%S' }
+                },
+                yAxis: {
+                  title: { text: 'light intensity (lux)' }
+                },
+                credits: { enabled: false }
+              });
+              setInterval(function ( ) {
+         
+                    var x = (new Date()).getTime(),
+                        y = parseFloat(light);
+                    //console.log(this.responseText);
+                    if(chartH.series[0].data.length > 40) {
+                      chartH.series[0].addPoint([x, y], true, true, true);
+                    } else {
+                      chartH.series[0].addPoint([x, y], true, false, true);
+                    }
+                  
+              }, 20000 ) ;
+              
+              var chartP = new Highcharts.Chart({
+                chart:{ renderTo:'temp' },
+                title: { text: 'Real Time Temperature Reading' },
+                series: [{
+                  showInLegend: false,
+                  data: []
+                }],
+                plotOptions: {
+                  line: { animation: false,
+                    dataLabels: { enabled: true }
+                  },
+                  series: { color: 'rgb(231, 29, 29)' }
+                },
+                xAxis: {
+                  type: 'datetime',
+                  dateTimeLabelFormats: { second: '%H:%M:%S' }
+                },
+                yAxis: {
+                  title: { text: 'temp (C)' }
+                },
+                credits: { enabled: false }
+              });
+              setInterval(function ( ) {
+               
+                    var x = (new Date()).getTime(),
+                        y = parseFloat(temp);
+                    //console.log(this.responseText);
+                    if(chartP.series[0].data.length > 40) {
+                      chartP.series[0].addPoint([x, y], true, true, true);
+                    } else {
+                      chartP.series[0].addPoint([x, y], true, false, true);
+                    }
+                
+              }, 20000 ) ;
+    
+    
+    
+              var chartHu = new Highcharts.Chart({
+                chart:{ renderTo:'humidity' },
+                title: { text: 'Real Time Humidity Reading' },
+                series: [{
+                  showInLegend: false,
+                  data: []
+                }],
+                plotOptions: {
+                  line: { animation: false,
+                    dataLabels: { enabled: true }
+                  },
+                  series: { color: 'rgb(29, 93, 231)' }
+                },
+                xAxis: {
+                  type: 'datetime',
+                  dateTimeLabelFormats: { second: '%H:%M:%S' }
+                },
+                yAxis: {
+                  title: { text: 'humidity (%)' }
+                },
+                credits: { enabled: false }
+              });
+              setInterval(function ( ) {
+                
+                    var x = (new Date()).getTime(),
+                        y = parseFloat(humidity);
+                    //console.log(this.responseText);
+                    if(chartHu.series[0].data.length > 40) {
+                      chartHu.series[0].addPoint([x, y], true, true, true);
+                    } else {
+                      chartHu.series[0].addPoint([x, y], true, false, true);
+                    }
+                  
+              }, 20000 ) ;
+    
+    
+              
+              var chartPre = new Highcharts.Chart({
+                chart:{ renderTo:'pressure' },
+                title: { text: 'Real Time Pressure Reading' },
+                series: [{
+                  showInLegend: false,
+                  data: []
+                }],
+                plotOptions: {
+                  line: { animation: false,
+                    dataLabels: { enabled: true }
+                  },
+                  series: { color: '#18009c' }
+                },
+                xAxis: {
+                  type: 'datetime',
+                  dateTimeLabelFormats: { second: '%H:%M:%S' }
+                },
+                yAxis: {
+                  title: { text: 'Pressure (hPa)' }
+                },
+                credits: { enabled: false }
+              });
+              setInterval(function ( ) {
+                
+                    var x = (new Date()).getTime(),
+                        y = parseFloat(pressure);
+                    //console.log(this.responseText);
+                    if(chartPre .series[0].data.length > 40) {
+                      chartPre .series[0].addPoint([x, y], true, true, true);
+                    } else {
+                      chartPre .series[0].addPoint([x, y], true, false, true);
+                    }
+                  
+              }, 20000 ) ;
+    
+             
+              var chartvolt = new Highcharts.Chart({
+                chart:{ renderTo:'voltage' },
+                title: { text: 'Real Time PV Voltage Reading' },
+                series: [{
+                  showInLegend: false,
+                  data: []
+                }],
+                plotOptions: {
+                  line: { animation: false,
+                    dataLabels: { enabled: true }
+                  },
+                  series: { color: 'rgb(1, 60, 12)' }
+                },
+                xAxis: {
+                  type: 'datetime',
+                  dateTimeLabelFormats: { second: '%H:%M:%S' }
+                },
+                yAxis: {
+                  title: { text: 'voltage (v)' }
+                },
+                credits: { enabled: false }
+              });
+              setInterval(function ( ) {
+               
+                    var x = (new Date()).getTime(),
+                        y = parseFloat(voltage);
+                    //console.log(this.responseText);
+                    if(chartvolt .series[0].data.length > 40) {
+                      chartvolt .series[0].addPoint([x, y], true, true, true);
+                    } else {
+                      chartvolt .series[0].addPoint([x, y], true, false, true);
+                    }
+                  
+              }, 20000 ) ;
+              
+    
+              var chartamps = new Highcharts.Chart({
+                chart:{ renderTo:'current' },
+                title: { text: 'Real Time PV Current reading Reading' },
+                series: [{
+                  showInLegend: false,
+                  data: []
+                }],
+                plotOptions: {
+                  line: { animation: false,
+                    dataLabels: { enabled: true }
+                  },
+                  series: { color: 'rgb(85, 1, 71)' }
+                },
+                xAxis: {
+                  type: 'datetime',
+                  dateTimeLabelFormats: { second: '%H:%M:%S' }
+                },
+                yAxis: {
+                  title: { text: 'current (amps)' }
+                },
+                credits: { enabled: false }
+              });
+              setInterval(function ( ) {
+               
+                    var x = (new Date()).getTime(),
+                        y = parseFloat(current);
+                    //console.log(this.responseText);
+                    if(chartamps .series[0].data.length > 40) {
+                      chartamps .series[0].addPoint([x, y], true, true, true);
+                    } else {
+                      chartamps .series[0].addPoint([x, y], true, false, true);
+                    }
+                  
+              }, 20000 ) ;
+    
+              var chartpo = new Highcharts.Chart({
+                chart:{ renderTo:'power' },
+                title: { text: 'Real Time PV Output Power Reading' },
+                series: [{
+                  showInLegend: false,
+                  data: []
+                }],
+                plotOptions: {
+                  line: { animation: false,
+                    dataLabels: { enabled: true }
+                  },
+                  series: { color: 'rgb(3, 1, 26)' }
+                },
+                xAxis: {
+                  type: 'datetime',
+                  dateTimeLabelFormats: { second: '%H:%M:%S' }
+                },
+                yAxis: {
+                  title: { text: 'power (watt)' }
+                },
+                credits: { enabled: false }
+              });
+              setInterval(function ( ) {
+               
+                    var x = (new Date()).getTime(),
+                        y = parseFloat(power);
+                    //console.log(this.responseText);
+                    if(chartpo .series[0].data.length > 40) {
+                      chartpo .series[0].addPoint([x, y], true, true, true);
+                    } else {
+                      chartpo .series[0].addPoint([x, y], true, false, true);
+                    }
+                  
+              }, 20000 ) ;
+    
+              </script>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  </body>
+</html>

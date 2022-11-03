@@ -1,0 +1,10 @@
+directories:
+  output: dist
+  buildResources: build
+appId: Smart-Energy-Meter
+win:
+  target:
+    - nsis
+  icon: src/assets/icons/logo.png
+files: []
+electronVersion: 3.1.13

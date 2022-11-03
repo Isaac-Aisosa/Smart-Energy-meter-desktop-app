@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Option 1: Bootstrap Style with Popper -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/chart.css" />
+    <style>
+   .body {
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 0 20px;
+}
+   .container {
+  border: 2px solid #57b9c0;
+  background-color: #f3f5f798;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: right;
+  max-width: 60px;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+
+
+.time-left {
+  float: left;
+  color: rgb(0, 0, 0);
+}
+
+        </style>
+  </head>
+  <body>
+    
+      <div style="margin-left: 20px;">
+        <h1 id ="status">datetime</h1> 
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label" style="font-size: 16px; font-weight: bold;">Select Year</label>
+        <input type="year" class="form-control" id="searchdate">
+        <small type="submit" class="" onclick= submit() style="background-color: rgb(24, 30, 209); border-radius: 2px;
+         padding: 5px; font-size: 15px; color: white;">Search</small >
+      </div>
+
+      <div class="main" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+      box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+    
+          <figure class="highcharts-figure">
+            <div id="container"></div>
+            <p class="highcharts-description">
+                Chart showing a combination of Solar Radiation and PV Power, using multiple
+                y-axes. Using multiple axes allows for data within different ranges to
+                be visualized together.
+            </p>
+
+        
+        </figure>
+      </div> 
+
+      <div class="main" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+      box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+    
+          <figure class="highcharts-figure">
+            <div id="container2"></div>
+            <p class="highcharts-description">
+                Chart showing a combination of Temperature and Humidity, using multiple
+                y-axes. Using multiple axes allows for data within different ranges to
+                be visualized together.
+            </p>
+
+        
+        </figure>
+      </div> 
+
+
+      <div class="main" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+      box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+    
+          <figure class="highcharts-figure">
+            <div id="container3"></div>
+            <p class="highcharts-description">
+                Chart showing a combination of Light Intensity and Pressure, using multiple
+                y-axes. Using multiple axes allows for data within different ranges to
+                be visualized together.
+            </p>
+
+        
+        </figure>
+      </div> 
+
+
+      <div class="main" style="border-radius: 20px;padding: 20px; background-color: #ffffff;   
+      box-shadow:  0 0 10px  rgba(0, 0, 0, 0.172);">
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+        <p class="highcharts-description">
+            A basic column chart compares rainfall values between four cities.
+            Tokyo has the overall highest amount of rainfall, followed by New York.
+            The chart is making use of the axis crosshair feature, to highlight
+            months as they are hovered over.
+        </p>
+    </figure>
+      </div> 
+    
+      <br>
+      <br>
+  
+            <div>
+    
+            </div>
+    
+            <script src="../render/highcharts.js"></script>
+            <script src="../render/exporting.js"></script>
+            <script src="../render/export-data.js"></script>
+            <script src="../render/accessibility.js"></script>  
+            <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase.js"></script>
+            <!--<script src="../render/series-label.js"></script>  -->
+            
+            <script type="text/javascript">
+
+             let solarRad =  0;
+             let humidity =  0;
+             let temp =      0;
+             let pressure =  0;
+             let light =     0;
+             let power =     0;
+             let voltage =   0;
+             let current =   0;
+             let h6;
+             let h7;
+             let h8;
+             let h9;
+             let h10;
+             let h11;
+             let h12;
+             let h13;
+             let h14;
+             let h15;
+             let h16;
+             let h17;
+             let h18;
+
+               // Your web app's Firebase configuration
+    const firebaseConfig = {
+    apiKey: "AIzaSyDIoP-iEOo-6UXQw8pKsLWVCWE_Du_gopc",
+    authDomain: "solar-logger-1a8b7.firebaseapp.com",
+    databaseURL: "https://solar-logger-1a8b7-default-rtdb.firebaseio.com",
+    projectId: "solar-logger-1a8b7",
+    storageBucket: "solar-logger-1a8b7.appspot.com",
+    messagingSenderId: "418381979032",
+    appId: "1:418381979032:web:7484462d08c082aa915fed",
+    measurementId: "G-2EMQM7PQE1"
+  };
+  
+    // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth(); //Current Month
+    var year = new Date().getFullYear(); //Current Year
+       //var hours = new Date().getHours(); //Current Hours
+      ///var min = new Date().getMinutes(); //Current Minutes
+     /// var sec = new Date().getSeconds(); //Current Seconds
+     status.innerHTML = year;
+    console.log("new Year");
+    console.log(year);
+
+    var months    = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var thisMonth = months[month];
+
+  var ref = firebase.database().ref().child('DataLog'+'/' + year + "/" + 'February' );
+          ref.on('value', function(snap) { 
+            const data = snap.val();
+            console.log("........Year.................." );
+            console.log(data);
+          });
+
+    
+
+
+
+     Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Monthly Average Solar Radiation'
+    },
+    subtitle: {
+        text: 'Source: Electronics lab Auchi Polytechnic'
+    },
+    xAxis: {
+        categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Solar Radiation (wm2)'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [  {
+        name: 'SolarRad',
+        data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+
+    }]
+});
+</script>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  </body>
+</html>
